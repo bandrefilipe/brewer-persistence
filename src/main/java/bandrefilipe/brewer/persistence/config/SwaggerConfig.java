@@ -1,6 +1,7 @@
 package bandrefilipe.brewer.persistence.config;
 
 import bandrefilipe.brewer.persistence.controller.ControllerPackageMarker;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,6 +19,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  */
 @Configuration
 @EnableSwagger2
+@NoArgsConstructor
 class SwaggerConfig {
 
     @Value("${swagger.api.info.title}")
