@@ -4,8 +4,12 @@ plugins {
     id 'java'
 }
 
+def props = new Properties()
+file('src/main/resources/application.properties')
+        .withInputStream { props.load(it) }
+
 group = 'bandrefilipe.apps'
-version = '1.0.0-SNAPSHOT'
+version = props.getProperty('app.version')
 sourceCompatibility = '11'
 
 configurations {
@@ -16,6 +20,10 @@ configurations {
     compileOnly {
         extendsFrom annotationProcessor
     }
+    all {
+        // Excluding Logback dependency
+        compile.exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+    }
 }
 
 repositories {
@@ -24,17 +32,18 @@ repositories {
 
 ext {
     set('springCloudVersion', "Hoxton.SR3")
+    set('swaggerVersion', '2.9.2')
 }
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-log4j2'
     implementation 'org.flywaydb:flyway-core'
     implementation 'org.springframework.cloud:spring-cloud-starter-circuitbreaker-resilience4j'
     implementation 'org.springframework.cloud:spring-cloud-starter-config'
     compileOnly 'org.projectlombok:lombok'
-    developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'com.h2database:h2'
     runtimeOnly 'mysql:mysql-connector-java'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
@@ -42,6 +51,8 @@ dependencies {
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
+    implementation "io.springfox:springfox-swagger2:${swaggerVersion}"
+    implementation "io.springfox:springfox-swagger-ui:${swaggerVersion}"
 }
 
 dependencyManagement {
