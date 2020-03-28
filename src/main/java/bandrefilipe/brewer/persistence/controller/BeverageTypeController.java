@@ -2,6 +2,7 @@ package bandrefilipe.brewer.persistence.controller;
 
 import bandrefilipe.brewer.persistence.model.BeverageType;
 import bandrefilipe.brewer.persistence.service.BeverageTypeService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ import java.util.List;
 @RequestMapping(
         path = API.BEVERAGES_TYPES,
         produces = MediaType.APPLICATION_JSON_VALUE)
+@Api(tags = "Beverage Types")
 class BeverageTypeController {
 
     private final BeverageTypeService beverageTypeService;

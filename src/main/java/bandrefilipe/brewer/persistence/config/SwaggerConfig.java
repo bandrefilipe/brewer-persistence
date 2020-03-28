@@ -1,8 +1,7 @@
 package bandrefilipe.brewer.persistence.config;
 
 import bandrefilipe.brewer.persistence.controller.ControllerPackageMarker;
-import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -19,32 +18,15 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  */
 @Configuration
 @EnableSwagger2
-@NoArgsConstructor
 class SwaggerConfig {
 
-    @Value("${swagger.api.info.title}")
-    private String title;
+    private final SwaggerApiInfoProperties properties;
 
-    @Value("${swagger.api.info.version}")
-    private String version;
-
-    @Value("${swagger.api.info.description:}")
-    private String description;
-
-    @Value("${swagger.api.info.contact.name:}")
-    private String contactName;
-
-    @Value("${swagger.api.info.contact.url:}")
-    private String contactUrl;
-
-    @Value("${swagger.api.info.contact.email:}")
-    private String contactEmail;
-
-    @Value("${swagger.api.info.license:}")
-    private String license;
-
-    @Value("${swagger.api.info.license-url:}")
-    private String licenseUrl;
+    @Autowired
+    SwaggerConfig(final SwaggerApiInfoProperties properties) {
+        super();
+        this.properties = properties;
+    }
 
     @Bean
     Docket api() {
@@ -58,16 +40,19 @@ class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title(title)
-                .version(version)
-                .description(description)
+                .title(properties.getTitle())
+                .version(properties.getVersion())
+                .description(properties.getDescription())
                 .contact(this.contact())
-                .license(license)
-                .licenseUrl(licenseUrl)
+                .license(properties.getLicense())
+                .licenseUrl(properties.getLicenseUrl())
                 .build();
     }
 
     private Contact contact() {
-        return new Contact(contactName, contactUrl, contactEmail);
+        return new Contact(
+                properties.getContactName(),
+                properties.getContactUrl(),
+                properties.getContactEmail());
     }
 }
