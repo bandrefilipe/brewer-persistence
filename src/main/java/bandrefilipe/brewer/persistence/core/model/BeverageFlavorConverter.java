@@ -1,22 +1,15 @@
-package bandrefilipe.brewer.persistence.model;
+package bandrefilipe.brewer.persistence.core.model;
+
+import bandrefilipe.brewer.persistence.core.model.enums.BeverageFlavor;
 
 import javax.persistence.AttributeConverter;
-import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Stream;
 
 import static java.util.Optional.ofNullable;
-import static java.util.stream.Collectors.toUnmodifiableMap;
 
+/**
+ * A package-private {@link AttributeConverter} for JPA usage.<p>
+ */
 class BeverageFlavorConverter implements AttributeConverter<BeverageFlavor, String> {
-
-    private final Map<String, BeverageFlavor> flavorMap;
-
-    BeverageFlavorConverter() {
-        super();
-        flavorMap = Stream.of(BeverageFlavor.values())
-                .collect(toUnmodifiableMap(BeverageFlavor::getCode, Function.identity()));
-    }
 
     @Override
     public String convertToDatabaseColumn(final BeverageFlavor attribute) {
@@ -28,7 +21,7 @@ class BeverageFlavorConverter implements AttributeConverter<BeverageFlavor, Stri
     @Override
     public BeverageFlavor convertToEntityAttribute(final String dbData) {
         return ofNullable(dbData)
-                .map(flavorMap::get)
+                .map(BeverageFlavor::getByCode)
                 .orElse(null);
     }
 }

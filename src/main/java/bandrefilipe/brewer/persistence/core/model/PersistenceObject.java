@@ -1,4 +1,4 @@
-package bandrefilipe.brewer.persistence.model;
+package bandrefilipe.brewer.persistence.core.model;
 
 import java.io.Serializable;
 

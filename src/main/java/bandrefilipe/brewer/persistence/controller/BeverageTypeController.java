@@ -1,6 +1,6 @@
 package bandrefilipe.brewer.persistence.controller;
 
-import bandrefilipe.brewer.persistence.model.BeverageType;
+import bandrefilipe.brewer.persistence.core.model.BeverageType;
 import bandrefilipe.brewer.persistence.service.BeverageTypeService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,6 @@ class BeverageTypeController {
 
     @Autowired
     BeverageTypeController(final BeverageTypeService beverageTypeService) {
-        super();
         this.beverageTypeService = beverageTypeService;
     }
 

@@ -24,7 +24,6 @@ class SwaggerConfig {
 
     @Autowired
     SwaggerConfig(final SwaggerApiInfoProperties properties) {
-        super();
         this.properties = properties;
     }
 

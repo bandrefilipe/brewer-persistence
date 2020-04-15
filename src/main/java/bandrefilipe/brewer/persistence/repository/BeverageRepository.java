@@ -1,6 +1,6 @@
 package bandrefilipe.brewer.persistence.repository;
 
-import bandrefilipe.brewer.persistence.model.Beverage;
+import bandrefilipe.brewer.persistence.core.model.Beverage;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

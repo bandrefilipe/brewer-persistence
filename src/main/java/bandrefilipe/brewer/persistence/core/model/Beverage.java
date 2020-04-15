@@ -1,7 +1,12 @@
-package bandrefilipe.brewer.persistence.model;
+package bandrefilipe.brewer.persistence.core.model;
 
-import lombok.EqualsAndHashCode;
+import bandrefilipe.brewer.persistence.core.model.enums.BeverageFlavor;
+import bandrefilipe.brewer.persistence.core.model.enums.Origin;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.Column;
@@ -14,22 +19,26 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.math.BigDecimal;
+import java.util.Objects;
 
 @Entity
 @Table(name = "beverage")
 @Getter
-@EqualsAndHashCode
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @ToString
 public class Beverage implements PersistenceObject {
 
-    protected static final String BEVERAGE_TYPE_MAPPER = "type";
+    static final String BEVERAGE_TYPE_MAPPER = "type";
 
     @Id
     @Column(name = "beverage")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "sku")
+    /** Business Key */
+    @Column(name = "sku", unique = true, nullable = false, updatable = false)
     private String sku;
 
     @Column(name = "name")
@@ -56,9 +65,22 @@ public class Beverage implements PersistenceObject {
 
     @Column(name = "flavor", length = 1)
     @Convert(converter = BeverageFlavorConverter.class)
-    private BeverageFlavor beverageFlavor;
+    private BeverageFlavor flavor;
 
     @ManyToOne
     @JoinColumn(name = "beverage_type_id")
     private BeverageType type;
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(sku);
+    }
+
+    @Override
+    public boolean equals(final Object other) {
+        if (other == this) return true;
+        if (other == null || other.getClass() != this.getClass()) return false;
+        final var that = (Beverage) other;
+        return Objects.equals(this.sku, that.sku);
+    }
 }

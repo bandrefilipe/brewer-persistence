@@ -1,22 +1,15 @@
-package bandrefilipe.brewer.persistence.model;
+package bandrefilipe.brewer.persistence.core.model;
+
+import bandrefilipe.brewer.persistence.core.model.enums.Origin;
 
 import javax.persistence.AttributeConverter;
-import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Stream;
 
 import static java.util.Optional.ofNullable;
-import static java.util.stream.Collectors.toUnmodifiableMap;
 
+/**
+ * A package-private {@link AttributeConverter} for JPA usage.
+ */
 class OriginConverter implements AttributeConverter<Origin, String> {
-
-    private final Map<String, Origin> originMap;
-
-    OriginConverter() {
-        super();
-        originMap = Stream.of(Origin.values())
-                .collect(toUnmodifiableMap(Origin::getCode, Function.identity()));
-    }
 
     @Override
     public String convertToDatabaseColumn(final Origin attribute) {
@@ -28,7 +21,7 @@ class OriginConverter implements AttributeConverter<Origin, String> {
     @Override
     public Origin convertToEntityAttribute(final String dbData) {
         return ofNullable(dbData)
-                .map(originMap::get)
+                .map(Origin::getByCode)
                 .orElse(null);
     }
 }
