@@ -19,48 +19,48 @@ import java.math.BigDecimal;
 public final class BeverageRegistrationRequest {
 
     @NotBlank
-    @ApiModelProperty(example = "AA000")
+    @ApiModelProperty(position = 0, example = "AA000")
     private String sku;
 
     @NotBlank
-    @ApiModelProperty(example = "Weihenstephaner Wheat Beer")
+    @ApiModelProperty(position = 1, example = "Weihenstephaner Wheat Beer")
     private String name;
 
-    @ApiModelProperty(example = "A veritable classic – and the star of our beer ensemble")
+    @ApiModelProperty(position = 2, example = "A veritable classic – and the star of our beer ensemble")
     private String description;
 
     @NotNull
     @DecimalMin("0.01")
     @DecimalMax("999999.99")
-    @ApiModelProperty(example = "32.99", allowableValues = "range[0.01, infinity]")
+    @ApiModelProperty(position = 3, example = "32.99", allowableValues = "range[0.01, infinity]")
     private BigDecimal unitPrice;
 
     @PositiveOrZero
     @DecimalMax("100.00")
-    @ApiModelProperty(example = "5.40", allowableValues = "range[0.00, 100.00]")
+    @ApiModelProperty(position = 4, example = "5.40", allowableValues = "range[0.00, 100.00]")
     private BigDecimal alcoholContent;
 
     @PositiveOrZero
     @DecimalMax("100.00")
-    @ApiModelProperty(example = "18.00", allowableValues = "range[0.00, 100.00]")
+    @ApiModelProperty(position = 5, example = "18.00", allowableValues = "range[0.00, 100.00]")
     private BigDecimal commission;
 
     @PositiveOrZero
-    @ApiModelProperty(example = "300", allowableValues = "range[0, infinity]")
+    @ApiModelProperty(position = 6, example = "300", allowableValues = "range[0, infinity]")
     private Integer stock;
 
     @NotBlank
     @Pattern(regexp = "[I,N]")
-    @ApiModelProperty(example = "I", allowableValues = "I, N")
+    @ApiModelProperty(position = 7, example = "I", allowableValues = "I, N")
     private String originCode;
 
     @NotBlank
     @Pattern(regexp = "[B,F,S,T,W]")
-    @ApiModelProperty(example = "B", allowableValues = "B, F, S, T, W")
+    @ApiModelProperty(position = 8, example = "B", allowableValues = "B, F, S, T, W")
     private String flavorCode;
 
     @NotNull
     @Positive
-    @ApiModelProperty(example = "1", allowableValues = "range[1, infinity]")
+    @ApiModelProperty(position = 9, example = "1", allowableValues = "range[1, infinity]")
     private Long beverageTypeId;
 }
