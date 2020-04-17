@@ -1,7 +1,6 @@
 package bandrefilipe.brewer.persistence.core.model.enums;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import static bandrefilipe.brewer.persistence.core.model.enums.BeverageFlavor.BITTER;
 import static bandrefilipe.brewer.persistence.core.model.enums.BeverageFlavor.FRUITY;
@@ -12,7 +11,6 @@ import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.toList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@SpringBootTest
 class BeverageFlavorTest {
 
     @Test
