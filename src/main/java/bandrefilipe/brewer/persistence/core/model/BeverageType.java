@@ -3,6 +3,7 @@ package bandrefilipe.brewer.persistence.core.model;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -18,6 +19,7 @@ import java.util.Objects;
 @Table(name = "beverage_type")
 @Getter
 @Setter(AccessLevel.PACKAGE)
+@NoArgsConstructor
 @ToString
 public class BeverageType implements PersistenceObject {
 
@@ -29,6 +31,11 @@ public class BeverageType implements PersistenceObject {
     /** Business Key */
     @Column(name = "name", unique = true, nullable = false, updatable = false)
     private String name;
+
+    BeverageType(final String name) {
+        this();
+        this.name = name;
+    }
 
     @Override
     public int hashCode() {
