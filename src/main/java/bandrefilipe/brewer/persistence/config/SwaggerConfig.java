@@ -21,20 +21,20 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 class SwaggerConfig {
 
     private final SwaggerApiInfoProperties properties;
-    private final Predicate<RequestHandler> requestHandlerPredicate;
+    private final Predicate<RequestHandler> requestHandler;
 
     @Autowired
     SwaggerConfig(final SwaggerApiInfoProperties properties,
-                  final Predicate<RequestHandler> requestHandlerPredicate) {
+                  final Predicate<RequestHandler> requestHandler) {
         this.properties = properties;
-        this.requestHandlerPredicate = requestHandlerPredicate;
+        this.requestHandler = requestHandler;
     }
 
     @Bean
     Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(requestHandlerPredicate)
+                .apis(requestHandler)
                 .paths(PathSelectors.any())
                 .build()
                 .apiInfo(this.apiInfo());

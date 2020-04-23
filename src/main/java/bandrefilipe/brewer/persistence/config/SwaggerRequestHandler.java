@@ -8,12 +8,19 @@ import org.springframework.context.annotation.Profile;
 import springfox.documentation.RequestHandler;
 import springfox.documentation.builders.RequestHandlerSelectors;
 
-@Profile("prod")
+
 @Configuration
-class SwaggerProdRequestHandlerPredicate {
+class SwaggerRequestHandler {
 
     @Bean
-    Predicate<RequestHandler> requestHandlerPredicate() {
+    @Profile("default | dev")
+    Predicate<RequestHandler> defaultRequestHandler() {
+        return RequestHandlerSelectors.any();
+    }
+
+    @Bean
+    @Profile("prod")
+    Predicate<RequestHandler> prodRequestHandler() {
         return RequestHandlerSelectors.basePackage(ControllerPackageMarker.class.getPackageName());
     }
 }
